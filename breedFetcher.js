@@ -1,10 +1,12 @@
 const request = require("request");
 
-const breedName = process.argv.slice(2); // Get the breed name from command-line arguments
+// const breedName = process.argv.slice(2); // Get the breed name from command-line arguments
 
-if (!breedName) {
-  console.log("Please provide a breed name as a command-line argument.");
-} else {
+// if (!breedName) {
+//   console.log("Please provide a breed name as a command-line argument.");
+// } else {
+
+const fetchBreedDescription = (breedName, callback) => {
   const url = `https://api.thecatapi.com/v1/breeds/search?q=${breedName}`;
 
   request(url, (err, response, body) => {
@@ -21,4 +23,6 @@ if (!breedName) {
       }
     }
   });
-}
+};
+
+module.exports = { fetchBreedDescription };
