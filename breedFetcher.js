@@ -1,14 +1,24 @@
-const req = require("request");
+const request = require("request");
 
-let url = "https://api.thecatapi.com/v1/breeds/Siberian";
+const breedName = process.argv[2]; // Get the breed name from command-line arguments
 
-req(url, (err, response, body) => {
-  if (err) {
-    console.log(err);
-  } else {
-    const data = JSON.parse(body);
-    console.log(data);
-    console.log(typeof data);
-    console.log(response);
-  }
-});
+if (!breedName) {
+  console.log("Please provide a breed name as a command-line argument.");
+} else {
+  const url = `https://api.thecatapi.com/v1/breeds/search?q=${breedName}`;
+
+  request(url, (err, response, body) => {
+    if (err) {
+      console.log("Error occurred while making the request:", err);
+    } else {
+      const data = JSON.parse(body);
+
+      if (data.length === 0) {
+        console.log(`Breed '${breedName}' not found.`);
+      } else {
+        const breedInfo = data[0];
+        console.log(breedInfo.description);
+      }
+    }
+  });
+}
