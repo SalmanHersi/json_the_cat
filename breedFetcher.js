@@ -1,6 +1,6 @@
 const request = require("request");
 
-const breedName = process.argv[2]; // Get the breed name from command-line arguments
+const breedName = process.argv.slice(2); // Get the breed name from command-line arguments
 
 if (!breedName) {
   console.log("Please provide a breed name as a command-line argument.");
